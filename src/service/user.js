@@ -11,4 +11,32 @@ async function getAllUser() {
   return rows;
 }
 
-module.exports = { getAllUser };
+async function createUser(name, email, password) {
+  const connection = await mysql.createConnection(databaseConfig);
+
+  const insertUser = `INSERT INTO user (name, email, password) VALUES (?, ?, ?)`;
+
+  await connection.query(insertUser, [name, email, password]);
+
+  await connection.end();
+}
+
+async function updateUser(id, name, email, password) {
+  const connection = await mysql.createConnection(databaseConfig);
+
+  const updateUser = `UPDATE user SET name = ?,email = ?,password = ? WHERE id = ?`;
+
+  await connection.query(updateUser, [id, name, email, password]);
+
+  await connection.end();
+}
+
+async function deleteUser(id) {
+  const connection = await mysql.createConnection(databaseConfig);
+
+  await connection.query(`DELETE FROM user WHERE id = ?`, [id]);
+
+  await connection.end();
+}
+
+module.exports = { getAllUser, createUser, updateUser };
