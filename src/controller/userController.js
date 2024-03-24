@@ -45,4 +45,18 @@ async function updateUser(req, res) {
   }
 }
 
+async function deleteUser(req, res) {
+  try {
+    const { id } = req.params;
+    await userService.deleteUser(id);
+
+    res.status(201).json({ message: "Sucess" });
+  } catch (error) {
+    res.status(500).send({
+      message: `Error Delete User!`,
+      body: error.message,
+    });
+  }
+}
+
 module.exports = { getAllUser, createUser, updateUser, deleteUser };

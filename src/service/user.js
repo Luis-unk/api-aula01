@@ -39,4 +39,4 @@ async function deleteUser(id) {
   await connection.end();
 }
 
-module.exports = { getAllUser, createUser, updateUser };
+module.exports = { getAllUser, createUser, updateUser, deleteUser };
